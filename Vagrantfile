@@ -5,15 +5,19 @@ Vagrant.configure(2) do |config|
     node1.vm.box = "bento/ubuntu-16.04"
     node1.vm.hostname = 'node1'
     node1.vm.network :private_network, ip: "192.168.33.11"
+    node1.vm.provision :shell, path: "python.sh"
   end
   config.vm.define "node2" do |node2|
     node2.vm.box = "bento/ubuntu-16.04"
     node2.vm.hostname = 'node2'
     node2.vm.network :private_network, ip: "192.168.33.12"
+    node2.vm.provision :shell, path: "python.sh"
   end
   config.vm.define "master", primary: true do |master|
     master.vm.hostname = 'master'
     master.vm.box = "bento/ubuntu-16.04"
     master.vm.network :private_network, ip: "192.168.33.10"
+    master.vm.provision :shell, path: "python.sh"
+    master.vm.provision :shell, path: "ansible.sh"
   end
 end
